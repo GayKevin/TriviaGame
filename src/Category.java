@@ -1,6 +1,4 @@
-import javax.annotation.processing.SupportedSourceVersion;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +8,7 @@ import java.util.Scanner;
 public class Category {
 
     private ArrayList<Question> questions = new ArrayList<Question>();
+    private boolean update = false;
     private String name;
 
     Category(String name){
@@ -82,6 +81,7 @@ public class Category {
                 part = sc.nextInt();
                 sc.nextLine();
                 if (part >= 1 && part <= 6){
+                    System.out.print("Enter your modification : ");
                     if (part != 6 && sc.hasNextLine()){
                         editQuestion(index, part, sc.nextLine());
                     } else {
@@ -104,6 +104,7 @@ public class Category {
                 }
             }
         }
+        this.update = true;
     }
 
     void editQuestion(int index, int part, String str){
@@ -129,6 +130,73 @@ public class Category {
         }
     }
 
+    void addQuestion(Scanner sc) {
+        String[] str = new String[6];
+        boolean isWorking = true;
+
+        System.out.print("Add your question : ");
+        if (sc.hasNextLine())
+            str[0] = sc.nextLine();
+        for (int i = 1; i < 5; i++) {
+            System.out.print("Add your answer " + i + ": ");
+            if (sc.hasNextLine()) {
+                str[i] = sc.nextLine();
+            }
+        }
+
+        while (isWorking){
+            System.out.print("Add the number of the answer 1-4: ");
+            if (sc.hasNextInt()){
+                str[5] = String.valueOf(sc.nextInt());
+                sc.nextLine();
+                isWorking = false;
+            }
+        }
+
+        this.questions.add(new Question(str));
+        this.update = true;
+    }
+
+    public void writeInFile(){
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+
+        try {
+
+            fw = new FileWriter(this.name + ".txt");
+            bw = new BufferedWriter(fw);
+
+            for (Question question: this.questions) {
+                bw.write(question.getQuestion() + "\n");
+                bw.write(question.getAnswer1() + "\n");
+                bw.write(question.getAnswer2() + "\n");
+                bw.write(question.getAnswer3() + "\n");
+                bw.write(question.getAnswer4() + "\n");
+                bw.write(question.getRealAnswer() + "\n");
+            }
+
+            System.out.println(this.name + ".txt has been updated!");
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (bw != null)
+                    bw.close();
+
+                if (fw != null)
+                    fw.close();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     String getName() {
         return name;
     }
@@ -143,5 +211,13 @@ public class Category {
 
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
+    }
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
     }
 }

@@ -15,6 +15,11 @@ public class Main {
         categories.add(new Category("HarryPotter"));
 
         menu(categories, sc);
+
+        for (Category category : categories) {
+            if (category.isUpdate())
+                category.writeInFile();
+        }
     }
 
     private static void menu(ArrayList<Category> categories, Scanner sc){
@@ -35,8 +40,6 @@ public class Main {
                         break;
                 }
             }
-
-            System.out.println("Test");
         }
     }
 
@@ -70,16 +73,15 @@ public class Main {
                             switch (sc.nextLine()) {
                                 case "a":
                                     takeQuizz(selectedCategory, sc);
-                                    isWorking = false;
                                     break;
                                 case "b":
-                                    isWorking = false;
+                                    selectedCategory.addQuestion(sc);
                                     break;
                                 case "c":
                                     selectedCategory.selectModifyQuestion(sc);
-                                    isWorking = false;
                                     break;
                             }
+                            isWorking = false;
                         }
                     }
                 }
