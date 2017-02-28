@@ -1,9 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * Created by Kevin Gay on 27/02/2017.
+ */
 
 /**
- * Created by thieg on 27/02/2017.
+ * Catgegory class who cointains Question
  */
 public class Category {
 
@@ -11,11 +14,19 @@ public class Category {
     private boolean update = false;
     private String name;
 
+    /**
+     * Constructor of the Catgegory who take a str of the name of the Catgeory / file
+     * @param name String of the file name
+     */
     Category(String name){
         this.name = name;
         parseFiles(name);
     }
 
+    /**
+     * Parse the file to get the questions inside it
+     * @param name of the file
+     */
     private void parseFiles(String name){
         String[] str = new String[6];
         File file = new File(name + ".txt");
@@ -42,6 +53,10 @@ public class Category {
         }
     }
 
+    /**
+     * Select the question that you want to edit
+     * @param sc Scanner for the input
+     */
     public void selectModifyQuestion(Scanner sc){
         int i = 0;
         int index = 0;
@@ -63,6 +78,11 @@ public class Category {
         }
     }
 
+    /**
+     * Selection which part of the question you want to edit and edit it
+     * @param index of the question you want to edit
+     * @param sc Scanner for the input
+     */
     private void modifyQuestion(int index, Scanner sc){
         boolean isWorking = true;
         int part = 0;
@@ -107,7 +127,13 @@ public class Category {
         this.update = true;
     }
 
-    void editQuestion(int index, int part, String str){
+    /**
+     * Edit the question with the input of the user
+     * @param index of the question
+     * @param part which is the part of the question that you want to edit
+     * @param str is the string that the user has entered
+     */
+    private void editQuestion(int index, int part, String str){
         switch (part){
             case 1:
                 this.questions.get(index).setQuestion(str);
@@ -130,6 +156,10 @@ public class Category {
         }
     }
 
+    /**
+     * Add the question inside the Category
+     * @param sc Scanner for the input
+     */
     void addQuestion(Scanner sc) {
         String[] str = new String[6];
         boolean isWorking = true;
@@ -157,7 +187,10 @@ public class Category {
         this.update = true;
     }
 
-    public void writeInFile(){
+    /**
+     * Update the file of the Category and write inside it
+     */
+    void writeInFile(){
         BufferedWriter bw = null;
         FileWriter fw = null;
 
@@ -213,7 +246,7 @@ public class Category {
         this.questions = questions;
     }
 
-    public boolean isUpdate() {
+    boolean isUpdate() {
         return update;
     }
 

@@ -2,8 +2,15 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Created by Kevin Gay on 27/02/2017.
+ */
 public class Main {
 
+    /**
+     * Main function
+     * @param args
+     */
     public static void main(String[] args) {
         ArrayList<Category> categories = new ArrayList<Category>();
         Scanner sc = new Scanner(System.in);
@@ -22,6 +29,11 @@ public class Main {
         }
     }
 
+    /**
+     * First Menu to show
+     * @param categories of the files
+     * @param sc Scanner for the input
+     */
     private static void menu(ArrayList<Category> categories, Scanner sc){
         boolean isWorking = true;
 
@@ -43,6 +55,11 @@ public class Main {
         }
     }
 
+    /**
+     * Select the category that you want
+     * @param categories of the files
+     * @param sc Scanner
+     */
     private static void selectCategory(ArrayList<Category> categories, Scanner sc) {
         int i = 0;
         int index = 0;
@@ -89,6 +106,11 @@ public class Main {
         }
     }
 
+    /**
+     * Give 10 randoms question to the player
+     * @param category that you have selected befire
+     * @param sc Scanner for the input
+     */
     private static void takeQuizz(Category category, Scanner sc){
         int index = 0;
         int answer = 0;
